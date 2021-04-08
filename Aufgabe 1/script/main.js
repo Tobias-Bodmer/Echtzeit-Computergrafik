@@ -34,15 +34,10 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(rechteck_01), gl.STATIC_DRAW);
 /* ==== Definition der Shader-Quelle ==== */
 
 const vertex_source = `
-
     attribute vec4 rechteck_position;
-
     void main(){
-
         gl_Position = rechteck_position;
-
     }
-
 `;
 
 const fragment_source = `
@@ -52,7 +47,6 @@ const fragment_source = `
         gl_FragColor = vec4(1,0,0,1);
     
     }
-
 `;
 
 /* ==== Erzeugung Shader ==== */
