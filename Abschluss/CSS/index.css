@@ -8,3 +8,43 @@ body {
     height: 100%;
     background-color: skyblue;
 }
+
+.figth {
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.playerPic {
+    grid-area: 1 / 1 / 3 / 3;
+}
+
+.enemyPic {
+    grid-area: 1 / 4 / 3 / 6;
+}
+
+.playerState {
+    border: solid 3px black;
+    background-color: rgb(180, 180, 180);
+    grid-area: 3 / 1 / 6 / 3;
+}
+
+.playerState > table{ 
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+}
+
+.enemyState {
+    border: solid 3px black;
+    background-color: rgb(180, 180, 180);
+    grid-area: 3 / 4 / 6 / 6;
+}
+
+.enemyState > table{ 
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+}

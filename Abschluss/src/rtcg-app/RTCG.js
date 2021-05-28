@@ -1,19 +1,24 @@
 import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
-import { createCube, createPlane, createSphere, createTestScene } from './components/geometry.js';
 import { createSpotLight } from './components/light.js';
 import { createControls } from './components/controller.js';
 import { createCamera } from './components/camera.js';
 import { createScene } from './components/scene.js';
 import { createRenderer } from './systems/renderer.js';
 import { Resizer } from './systems/Resizer.js';
-import { Player } from './components/Player.js';
+import { Character } from './components/Character.js';
 import { Anim_loop } from './systems/Anim_loop.js';
+import { createGameBoard } from './components/board.js';
+import { fight } from './components/figth.js';
 
+let canvas;
 let camera;
 let renderer;
 let scene;
+let controller;
 let resizer;
 let player;
+let stateScreen = document.getElementById("states");;
+let enemies = [];
 
 let anim_loop;
 
@@ -21,9 +26,10 @@ let anim_loop;
 class RTCG {
 
     constructor(container) {
+        canvas = document.querySelector("#scene-container");
+
         camera = createCamera();
         scene = createScene();
-        // scene = createTestScene(6, 6, 2);
         renderer = createRenderer();
 
         anim_loop = new Anim_loop(camera, scene, renderer);
@@ -34,28 +40,48 @@ class RTCG {
 
         resizer.now_resize = () => {
             this.render();
+            this.iniStates();
         }
 
-        const plane = createPlane(30, 30, 64, "grey", 0.25);
-        plane.position.y = -2;
-        plane.rotation.x = -Math.PI / 2;
-        scene.add(plane);
+        this.iniLevel();
+        this.iniStates();
+        document.body.appendChild(stateScreen);
 
-        player = new Player("hello");
-        console.log(player);
+
+        controller = createControls(camera, document.querySelector("canvas"));
+    }
+
+    iniLevel() {
+        const gameBoard = createGameBoard(21, 21, "white");
+        gameBoard.forEach(element => {
+            scene.add(element);
+        });
+
+        const enemy = new Character("1", 100, 100, 80, 20);
+        enemy.geometry.position.y = 1;
+        enemy.geometry.position.z = -18;
+        enemies.push(enemy);
+        scene.add(enemy.geometry);
+
+        player = new Character("Player", 100, 100, 80, 20);
+        player.geometry.material.color = new THREE.Color("green");
+        player.geometry.position.y = 1;
+        player.geometry.position.z = -1;
         scene.add(player.geometry);
-
-        const cube = createCube(1, "white", 0.25);
-        cube.position.z = -8;
-        scene.add(cube);
-
-        // anim_loop.animated_objects.push(cube);
 
         const light = createSpotLight();
         scene.add(light.keyLight);
         scene.add(light.ambientLight);
+    }
 
-        createControls(camera, document.querySelector("canvas"));
+    iniStates() {        
+        stateScreen.style.background = "white";
+        stateScreen.style.width = window.innerWidth + "px";
+        stateScreen.style.height = window.innerHeight + "px";
+
+        var fightDiv = document.getElementsByClassName("figth")[0];
+        fightDiv.style.width = window.innerWidth + "px";
+        fightDiv.style.height = window.innerHeight + "px";
     }
 
     onMouseDown(event) {
@@ -69,10 +95,30 @@ class RTCG {
 
         const intersects = raycaster.intersectObjects(scene.children, false);
 
-        // player.geometry.position.x = intersects[0].object.position.x;
-        // player.geometry.position.y = intersects[0].object.position.y;
-        player.geometry.position.z = intersects[0].object.position.z;
+        if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry.position == intersects[0].object.position) == null) {
+            player.geometry.position.x = intersects[0].object.position.x;
+            player.geometry.position.z = intersects[0].object.position.z;
+        } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry.position == intersects[0].object.position) != null) {
+            if(player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
+                player.geometry.position.x = intersects[0].object.position.x;
+                player.geometry.position.z = intersects[0].object.position.z+1;
+            }
+
+            canvas.style.display = "none";
+            fight(enemies.find(enemy => enemy.geometry.position == intersects[0].object.position), player);
+        }
+
+        // controller.reset();
     }
+
+    onTabDown(event) {
+        if (canvas.style.display == "none") {
+            canvas.style.display = "block"
+        } else {
+            canvas.style.display = "none";
+        }
+    }
+
     render() {
 
         renderer.render(scene, camera);
