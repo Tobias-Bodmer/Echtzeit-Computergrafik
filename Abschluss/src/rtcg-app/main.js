@@ -15,6 +15,8 @@ function main() {
         }
     }), false);
 
+    document.getElementById("rollTheDice").addEventListener("click", (event) => {ins_RTCG.rollTheDice()});
+
     ins_RTCG.start();
 }
 

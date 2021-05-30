@@ -21,84 +21,95 @@
 
 <body>
     <div id="states" style="visibility: collapse;"></div>
-    <div class="figth">
-        <div class="playerPic">
+    <div id="fight" style="display: none;">
+        <div class="fight">
+            <div class="playerPic">
+                <img id="playerPicSrc" src="">
+            </div>
+            <div class="playerState">
+                <table>
+                    <tr>
+                        <th>
+                            Health:
+                        </th>
+                        <td id="playerHealth">
 
-        </div>
-        <div class="playerState">
-            <table>
-                <tr>
-                    <th>
-                        Health:
-                    </th>
-                    <td id="playerHealth">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Strength:
+                        </th>
+                        <td id="playerStrength">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Strength:
-                    </th>
-                    <td id="playerStrength">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Agility:
+                        </th>
+                        <td id="playerAgility">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Agility:
-                    </th>
-                    <td id="playerAgility">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Intelligence:
+                        </th>
+                        <td id="playerIntelligence">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Intelligence:
-                    </th>
-                    <td id="playerIntelligence">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="enemyPic">
+                <img id="enemyPicSrc" src="">
+            </div>
+            <div class="enemyState">
+                <table>
+                    <tr>
+                        <th>
+                            Health:
+                        </th>
+                        <td id="enemyHealth">
 
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="enemyPic">
-            
-        </div>
-        <div class="enemyState">
-            <table>
-                <tr>
-                    <th>
-                        Health:
-                    </th>
-                    <td id="enemyHealth">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Strength:
+                        </th>
+                        <td id="enemyStrength">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Strength:
-                    </th>
-                    <td id="enemyStrength">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Agility:
+                        </th>
+                        <td id="enemyAgility">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Agility:
-                    </th>
-                    <td id="enemyAgility">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Intelligence:
+                        </th>
+                        <td id="enemyIntelligence">
 
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Intelligence:
-                    </th>
-                    <td id="enemyIntelligence">
-
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="dice">
+                <img src="./src/img/d12.png">
+            </div>
+            <div class="dice">
+                <span id="diceNumber"></span>
+            </div>
+            <div class="button">
+                <a href="javascript:{}" id="rollTheDice">Roll</a>
+            </div>
         </div>
     </div>
     <div id="scene-container"></div>

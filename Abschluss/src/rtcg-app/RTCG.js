@@ -8,7 +8,7 @@ import { Resizer } from './systems/Resizer.js';
 import { Character } from './components/Character.js';
 import { Anim_loop } from './systems/Anim_loop.js';
 import { createGameBoard } from './components/board.js';
-import { fight } from './components/figth.js';
+import { damage, fight } from './components/fight.js';
 
 let canvas;
 let camera;
@@ -17,8 +17,11 @@ let scene;
 let controller;
 let resizer;
 let player;
+let currentEnemy;
 let stateScreen = document.getElementById("states");;
 let enemies = [];
+
+let haveDiced = false;
 
 let anim_loop;
 
@@ -57,13 +60,13 @@ class RTCG {
             scene.add(element);
         });
 
-        const enemy = new Character("1", 100, 100, 80, 20);
+        const enemy = new Character("1", 100, 30, 20, 40, "./src/img/Sixfeet_colorFinal.jpg");
         enemy.geometry.position.y = 1;
         enemy.geometry.position.z = -18;
         enemies.push(enemy);
         scene.add(enemy.geometry);
 
-        player = new Character("Player", 100, 100, 80, 20);
+        player = new Character("Player", 100, 70, 30, 20, "./src/img/dwarf_color1.jpg");
         player.geometry.material.color = new THREE.Color("green");
         player.geometry.position.y = 1;
         player.geometry.position.z = -1;
@@ -74,14 +77,29 @@ class RTCG {
         scene.add(light.ambientLight);
     }
 
-    iniStates() {        
+    iniStates() {
         stateScreen.style.background = "white";
         stateScreen.style.width = window.innerWidth + "px";
         stateScreen.style.height = window.innerHeight + "px";
 
-        var fightDiv = document.getElementsByClassName("figth")[0];
+        var fightDiv = document.getElementsByClassName("fight")[0];
         fightDiv.style.width = window.innerWidth + "px";
         fightDiv.style.height = window.innerHeight + "px";
+    }
+
+    rollTheDice() {
+        if (!haveDiced) {
+            var newNumber = Math.floor(Math.random() * 12) + 1;
+            document.getElementById("diceNumber").innerHTML = newNumber.toString();
+
+            damage(currentEnemy, player, newNumber, player, scene);
+            haveDiced = !haveDiced;
+            setTimeout(() => {
+                var newNumber = Math.floor(Math.random() * 12) + 1;
+                damage(player, currentEnemy, newNumber, player, scene);
+                haveDiced = !haveDiced;
+            }, 1000)
+        }
     }
 
     onMouseDown(event) {
@@ -99,16 +117,18 @@ class RTCG {
             player.geometry.position.x = intersects[0].object.position.x;
             player.geometry.position.z = intersects[0].object.position.z;
         } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry.position == intersects[0].object.position) != null) {
-            if(player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
+            if (player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
                 player.geometry.position.x = intersects[0].object.position.x;
-                player.geometry.position.z = intersects[0].object.position.z+1;
+                player.geometry.position.z = intersects[0].object.position.z + 1;
             }
 
-            canvas.style.display = "none";
-            fight(enemies.find(enemy => enemy.geometry.position == intersects[0].object.position), player);
+            setTimeout(() => {
+                canvas.style.display = "none";
+                currentEnemy = enemies.find(enemy => enemy.geometry.position == intersects[0].object.position);
+                enemies = enemies.find(enemy => enemy.geometry.position != intersects[0].object.position);
+                fight(currentEnemy, player);
+            }, 800);
         }
-
-        // controller.reset();
     }
 
     onTabDown(event) {
