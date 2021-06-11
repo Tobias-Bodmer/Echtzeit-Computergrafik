@@ -108,8 +108,10 @@ class RTCG {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
+        console.log(e.type);
+
         if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
-            var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+            var touch = e.touches[0];
             mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (touch.clientY / window.innerHeight) * 2 + 1;
         } else {
