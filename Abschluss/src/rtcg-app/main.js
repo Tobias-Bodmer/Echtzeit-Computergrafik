@@ -24,6 +24,20 @@ function main() {
 
     }), false);
 
+    document.addEventListener("touchend", ((event) => {
+
+        var now = new Date().getTime();
+        var timesince = now - mylatesttap;
+        if ((timesince < 300) && (timesince > 0)) {
+            ins_RTCG.onTabDown(event);
+        } else {
+
+        }
+
+        mylatesttap = new Date().getTime();
+
+    }), false);
+
     document.addEventListener("keydown", ((event) => {
         if (event.key == "Tab" || event.key.toLowerCase() == "i" || event.key.toLowerCase() == "e") {
             ins_RTCG.onTabDown(event);
