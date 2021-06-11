@@ -104,12 +104,18 @@ class RTCG {
         }
     }
 
-    onMouseDown(event) {
+    onMouseDown(e) {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
+            var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+            mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (touch.clientY / window.innerHeight) * 2 + 1;
+        } else {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
+        }
 
         raycaster.setFromCamera(mouse, camera);
 
