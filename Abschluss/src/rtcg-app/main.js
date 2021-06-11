@@ -14,26 +14,19 @@ function main() {
 
         var now = new Date().getTime();
         var timesince = now - mylatesttap;
-        if ((timesince < 300) && (timesince > 0)) {
-            ins_RTCG.onTabDown(event);
-        } else {
+        if (timesince > 300) {
             ins_RTCG.onMouseDown(event);
         }
-
         mylatesttap = new Date().getTime();
 
     }), false);
 
     document.addEventListener("touchend", ((event) => {
-
         var now = new Date().getTime();
         var timesince = now - mylatesttap;
         if ((timesince < 300) && (timesince > 0)) {
             ins_RTCG.onTabDown(event);
-        } else {
-
         }
-
         mylatesttap = new Date().getTime();
 
     }), false);
