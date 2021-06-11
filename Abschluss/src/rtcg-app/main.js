@@ -9,13 +9,28 @@ function main() {
         ins_RTCG.onMouseDown(event);
     }), false);
 
+    var mylatesttap;
+    container.addEventListener("touchend", ((event) => {
+
+        var now = new Date().getTime();
+        var timesince = now - mylatesttap;
+        if ((timesince < 600) && (timesince > 0)) {
+            ins_RTCG.onTabDown(event);
+        } else {
+            ins_RTCG.onMouseDown(event);
+        }
+
+        mylatesttap = new Date().getTime();
+
+    }), false);
+
     document.addEventListener("keydown", ((event) => {
         if (event.key == "Tab" || event.key.toLowerCase() == "i" || event.key.toLowerCase() == "e") {
             ins_RTCG.onTabDown(event);
         }
     }), false);
 
-    document.getElementById("rollTheDice").addEventListener("click", (event) => {ins_RTCG.rollTheDice()});
+    document.getElementById("rollTheDice").addEventListener("click", (event) => { ins_RTCG.rollTheDice() });
 
     ins_RTCG.start();
 }

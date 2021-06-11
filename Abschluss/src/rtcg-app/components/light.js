@@ -2,10 +2,10 @@ import { AmbientLight, SpotLight } from 'https://unpkg.com/three@0.127.0/build/t
 
 function createSpotLight() {
 
-    const keyLight = new SpotLight('white', 10);
-    const ambientLight = new AmbientLight('white', 0.5);
+    const keyLight = new SpotLight('white', 5);
+    const ambientLight = new AmbientLight('white', 2);
 
-    keyLight.position.set(0, 10, 6);
+    keyLight.position.set(0, 10,  -21);
 
     keyLight.castShadow = true;
 

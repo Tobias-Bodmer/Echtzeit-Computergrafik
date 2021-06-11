@@ -1,5 +1,6 @@
-import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
-import { createCuboid } from './geometry.js';
+// import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+// import { createCuboid } from './geometry.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
 
 class Character {
     name;
@@ -11,7 +12,13 @@ class Character {
         this.name = name;
         this.img = img;
         this.state.push(health, strength, agility, intelligence);
-        this.geometry = createCuboid(1, 2, 1, "red", 0.25);
+    }
+    
+    async loadModel(modelUrl) {
+        var loader = new GLTFLoader();
+        const scene = await loader.loadAsync(modelUrl);
+
+        this.geometry = scene.scene.children[0];
     }
 }
 

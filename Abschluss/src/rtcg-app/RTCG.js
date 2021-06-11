@@ -54,21 +54,23 @@ class RTCG {
         controller = createControls(camera, document.querySelector("canvas"));
     }
 
-    iniLevel() {
-        const gameBoard = createGameBoard(21, 21, "white");
+    async iniLevel() {
+        const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png");
         gameBoard.forEach(element => {
             scene.add(element);
         });
 
         const enemy = new Character("1", 100, 30, 20, 40, "./src/img/Sixfeet_colorFinal.jpg");
+        await enemy.loadModel("./src/modells/Dwarf.gltf");
         enemy.geometry.position.y = 1;
         enemy.geometry.position.z = -18;
         enemies.push(enemy);
         scene.add(enemy.geometry);
 
         player = new Character("Player", 100, 70, 30, 20, "./src/img/dwarf_color1.jpg");
-        player.geometry.material.color = new THREE.Color("green");
+        await player.loadModel("./src/modells/Dwarf.gltf");
         player.geometry.position.y = 1;
+        player.geometry.rotation.y = Math.PI;
         player.geometry.position.z = -1;
         scene.add(player.geometry);
 
@@ -113,10 +115,10 @@ class RTCG {
 
         const intersects = raycaster.intersectObjects(scene.children, false);
 
-        if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry.position == intersects[0].object.position) == null) {
+        if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
             player.geometry.position.x = intersects[0].object.position.x;
             player.geometry.position.z = intersects[0].object.position.z;
-        } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry.position == intersects[0].object.position) != null) {
+        } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) != null) {
             if (player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
                 player.geometry.position.x = intersects[0].object.position.x;
                 player.geometry.position.z = intersects[0].object.position.z + 1;
@@ -124,8 +126,11 @@ class RTCG {
 
             setTimeout(() => {
                 canvas.style.display = "none";
-                currentEnemy = enemies.find(enemy => enemy.geometry.position == intersects[0].object.position);
-                enemies = enemies.find(enemy => enemy.geometry.position != intersects[0].object.position);
+                currentEnemy = enemies.find(enemy => enemy.geometry == intersects[0].object);
+                enemies = enemies.find(enemy => enemy.geometry != intersects[0].object);
+                if (enemies == undefined) {
+                    enemies = [];
+                }
                 fight(currentEnemy, player);
             }, 800);
         }
@@ -140,7 +145,6 @@ class RTCG {
     }
 
     render() {
-
         renderer.render(scene, camera);
 
         this.start();
