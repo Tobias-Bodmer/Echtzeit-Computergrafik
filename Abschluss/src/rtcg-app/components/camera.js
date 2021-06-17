@@ -6,7 +6,7 @@ function createCamera() {
         35, // FOV
         1, // Aspect Ratio
         0.1, // Near Clip
-        100, // Far Clip
+        1000, // Far Clip
     );
 
     // Rückstellung der Kamera
