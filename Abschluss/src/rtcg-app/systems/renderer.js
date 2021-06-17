@@ -2,7 +2,7 @@ import { WebGLRenderer } from 'https://unpkg.com/three@0.127.0/build/three.modul
 
 function createRenderer() {
 
-    const renderer = new WebGLRenderer({ antialias: true });
+    const renderer = new WebGLRenderer({ antialias: true, alpha: true});
 
     renderer.setAnimationLoop(() => {
         renderer.render(scene, camera);
@@ -10,6 +10,7 @@ function createRenderer() {
 
     renderer.physicallyCorrectLights = true;
     renderer.shadowMap.enabled = true;
+    renderer.xr.enabled = true;
 
     return renderer;
 }
