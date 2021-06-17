@@ -1,4 +1,4 @@
-import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r126/examples/jsm/controls/OrbitControls.js';
 
 function createControls(camera, canvas) {
 

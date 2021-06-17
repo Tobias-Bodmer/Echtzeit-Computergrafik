@@ -34,7 +34,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 300%;
     font-weight: bolder;
-    color: white;
 }
 
 .button {
@@ -47,7 +46,6 @@ body {
 
 .playerState {
     border: solid 3px black;
-    background-color: rgb(180, 180, 180);
     grid-area: 3 / 1 / 6 / 3;
 }
 
@@ -59,7 +57,6 @@ body {
 
 .enemyState {
     border: solid 3px black;
-    background-color: rgb(180, 180, 180);
     grid-area: 3 / 4 / 6 / 6;
 }
 

@@ -1,5 +1,5 @@
 import { createSpotLight } from './light.js';
-import { ConeGeometry, CylinderGeometry, SphereBufferGeometry, BoxBufferGeometry, PlaneBufferGeometry, Mesh, MeshStandardMaterial, Color, MathUtils, Scene } from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+import { ConeGeometry, CylinderGeometry, SphereBufferGeometry, BoxBufferGeometry, PlaneBufferGeometry, Mesh, MeshStandardMaterial, Color, MathUtils, Scene } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 
 function createPlane(width, height, segments, color, roughness) {
     const geometry = new PlaneBufferGeometry(width, height, segments);
@@ -95,8 +95,6 @@ function createCone(radius, height, radialSegments, heightSegments, color, rough
 
 function createTestScene(cubes, spheres, spaceing) {
     const scene = new Scene();
-
-    scene.background = new Color('black');
 
     let plane = createPlane(20, 20, 64, "white", 0);
     plane.position.y = -2;

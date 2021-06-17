@@ -1,7 +1,6 @@
 import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
-import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js';
 import { createSpotLight } from './components/light.js';
-import { createControls } from './components/controller.js';
 import { createCamera } from './components/camera.js';
 import { createScene } from './components/scene.js';
 import { createRenderer } from './systems/renderer.js';
@@ -30,13 +29,15 @@ let anim_loop;
 class RTCG {
 
     constructor(container) {
-        document.body.appendChild(ARButton.createButton(renderer));
+        three = THREE;
         canvas = document.querySelector("#scene-container");
-
+        
         camera = createCamera();
         scene = createScene();
         renderer = createRenderer();
-
+        
+        document.body.appendChild(ARButton.createButton(renderer));
+        
         anim_loop = new Anim_loop(camera, scene, renderer);
 
         container.append(renderer.domElement);
@@ -84,7 +85,6 @@ class RTCG {
     }
 
     iniStates() {
-        stateScreen.style.background = "white";
         stateScreen.style.width = window.innerWidth + "px";
         stateScreen.style.height = window.innerHeight + "px";
 

@@ -1,4 +1,4 @@
-import { MeshPhongMaterial, TextureLoader, Vector2 } from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+import { MeshPhongMaterial, TextureLoader } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 import { createPlane, createCube } from './geometry.js';
 
 function createGameBoard(width, height, color, texture, normal) {
