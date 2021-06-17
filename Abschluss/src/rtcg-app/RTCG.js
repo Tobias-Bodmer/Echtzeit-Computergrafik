@@ -1,5 +1,6 @@
 import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
 import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js';
+import * as THREEM from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 import { createSpotLight } from './components/light.js';
 import { createCamera } from './components/camera.js';
 import { createScene } from './components/scene.js';
@@ -37,7 +38,7 @@ class RTCG {
         renderer = createRenderer();
         
         document.body.appendChild(ARButton.createButton(renderer));
-        
+
         anim_loop = new Anim_loop(camera, scene, renderer);
 
         container.append(renderer.domElement);
@@ -55,7 +56,7 @@ class RTCG {
 
 
         controller = renderer.xr.getController(0);
-      	// controller.addEventListener('select', onSelect);
+      	controller.addEventListener('select', this.onMouseDown);
      	scene.add(controller);
     }
 
@@ -109,8 +110,8 @@ class RTCG {
     }
 
     onMouseDown(e) {
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        const raycaster = new THREEM.Raycaster();
+        const mouse = new THREEM.Vector2();
 
         if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
             var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
