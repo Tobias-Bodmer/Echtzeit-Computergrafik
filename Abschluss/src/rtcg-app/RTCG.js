@@ -54,9 +54,8 @@ class RTCG {
         this.iniStates();
         document.body.appendChild(stateScreen);
 
-
         controller = renderer.xr.getController(0);
-      	controller.addEventListener('select', this.onMouseDown);
+      	controller.addEventListener('click', this.onMouseDown);
      	scene.add(controller);
     }
 
