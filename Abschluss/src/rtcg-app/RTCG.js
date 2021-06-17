@@ -53,7 +53,9 @@ class RTCG {
         document.body.appendChild(stateScreen);
 
 
-        controller = createControls(camera, document.querySelector("canvas"));
+        controller = renderer.xr.getController(0);
+      	controller.addEventListener('select', onSelect);
+     	scene.add(controller);
     }
 
     async iniLevel() {
