@@ -1,3 +1,4 @@
+import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
 import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
 import { createSpotLight } from './components/light.js';
 import { createControls } from './components/controller.js';
@@ -29,6 +30,7 @@ let anim_loop;
 class RTCG {
 
     constructor(container) {
+        document.body.appendChild(ARButton.createButton(renderer));
         canvas = document.querySelector("#scene-container");
 
         camera = createCamera();
