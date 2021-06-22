@@ -5,12 +5,12 @@ function main() {
 
     const ins_RTCG = new RTCG(container);
 
-    container.addEventListener("click", ((event) => {
+    document.addEventListener("click", ((event) => {
         ins_RTCG.onMouseDown(event);
     }), false);
 
     var mylatesttap;
-    container.addEventListener("touchend", ((event) => {
+    document.addEventListener("touchend", ((event) => {
 
         var now = new Date().getTime();
         var timesince = now - mylatesttap;

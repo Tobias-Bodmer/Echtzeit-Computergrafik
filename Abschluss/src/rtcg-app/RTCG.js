@@ -55,9 +55,36 @@ class RTCG {
         document.body.appendChild(stateScreen);
 
         controller = renderer.xr.getController(0);
-        controller.addEventListener('click', this.onMouseDown);
+        controller.addEventListener('select', this.onSelect);
         scene.add(controller);
     }
+
+    onSelect(event) {
+
+        console.log("yes");
+
+        let frame = event.frame;
+        let session = frame.session;
+        let anchorPose = new XRRigidTransform();
+        let inputSource = event.inputSource;
+
+        // If the user is on a screen based device, place the anchor 1 meter in front of them.
+        // Otherwise place the anchor at the location of the input device
+        if (inputSource.targetRayMode == 'screen') {
+          anchorPose = new XRRigidTransform(
+          {x: 0, y: -100, z: -100},
+          {x: 0, y: 0, z: 0, w: 1});
+        }
+
+        if (session.isImmersive) {
+          // Create a free-floating anchor.
+          frame.createAnchor(anchorPose, inputSource.targetRaySpace).then((anchor) => {
+            addAnchoredObjectToScene(anchor);
+          }, (error) => {
+            console.error("Could not create anchor: " + error);
+          });
+        }
+      }
 
     async iniLevel() {
         const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png");
@@ -117,6 +144,9 @@ class RTCG {
     }
 
     onMouseDown(e) {
+
+        console.log("click!");
+
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
 
