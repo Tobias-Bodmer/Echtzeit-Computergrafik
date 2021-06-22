@@ -146,11 +146,10 @@ class RTCG {
     onMouseDown(e) {
 
         console.log("click!");
-        alert("click!");
-
+        
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
-
+        
         if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
             var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
             var touch = evt.touches[0] || evt.changedTouches[0];
@@ -160,12 +159,13 @@ class RTCG {
             mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
         }
-
+        
         raycaster.setFromCamera(mouse, camera);
-
+        
         const intersects = raycaster.intersectObjects(scene.children, false);
-
+        
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
+            alert("click!");
             player.geometry.position.x = Math.round(intersects[0].point.x);
             player.geometry.position.z = Math.round(intersects[0].point.z);
         } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) != null) {
