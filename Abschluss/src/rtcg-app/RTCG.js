@@ -32,11 +32,11 @@ class RTCG {
     constructor(container) {
         three = THREE;
         canvas = document.querySelector("#scene-container");
-        
+
         camera = createCamera();
         scene = createScene();
         renderer = createRenderer();
-        
+
         document.body.appendChild(ARButton.createButton(renderer));
 
         anim_loop = new Anim_loop(camera, scene, renderer);
@@ -55,8 +55,8 @@ class RTCG {
         document.body.appendChild(stateScreen);
 
         controller = renderer.xr.getController(0);
-      	controller.addEventListener('click', this.onMouseDown);
-     	scene.add(controller);
+        controller.addEventListener('click', this.onMouseDown);
+        scene.add(controller);
     }
 
     async iniLevel() {
@@ -82,6 +82,14 @@ class RTCG {
         const light = createSpotLight();
         scene.add(light.keyLight);
         scene.add(light.ambientLight);
+
+        console.log(scene.children);
+
+        // for (let index = 0; index < scene.children.length; index++) {
+        //     if (scene.children[index].geometry != undefined) {
+        //         scene.children[index].geometry.scale(0.1, 0.1, 0.1);
+        //     }
+        // }
     }
 
     iniStates() {
@@ -127,8 +135,8 @@ class RTCG {
         const intersects = raycaster.intersectObjects(scene.children, false);
 
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
-            player.geometry.position.x = intersects[0].object.position.x;
-            player.geometry.position.z = intersects[0].object.position.z;
+            player.geometry.position.x = Math.round(intersects[0].point.x);
+            player.geometry.position.z = Math.round(intersects[0].point.z);
         } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) != null) {
             if (player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
                 player.geometry.position.x = intersects[0].object.position.x;

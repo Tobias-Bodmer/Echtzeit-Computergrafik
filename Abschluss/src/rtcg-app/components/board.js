@@ -21,16 +21,6 @@ function createGameBoard(width, height, color, texture, normal) {
 
     gameBoard.push(plane);
 
-    for (let i = 0 - height / 2 + 0.5; i < height / 2; i++) {
-        for (let j = 0; j < width; j++) {
-            const cube = createCube(1, "white", 0.25);
-            cube.position.z = -(height / 2) + i + 0.5;
-            cube.position.x = -(width / 2) + j + 0.5;
-            cube.material = new MeshPhongMaterial({ color, opacity: 0, transparent: true, });
-            gameBoard.push(cube);
-        }
-    }
-
     return gameBoard;
 }
 
