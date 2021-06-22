@@ -146,6 +146,7 @@ class RTCG {
     onMouseDown(e) {
 
         console.log("click!");
+        alert("click!");
 
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
