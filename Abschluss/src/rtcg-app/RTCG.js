@@ -83,6 +83,9 @@ class RTCG {
 
         group.applyMatrix4(new THREE.Matrix4().makeScale(0.02, 0.02, 0.02));
 
+        //TODO: play with the numebr
+        group.applyMatrix4(new THREE.Matrix4().makeTranslation (0, -0.2, 0));
+
         scene.add(group);
     }
 
@@ -95,6 +98,7 @@ class RTCG {
         fightDiv.style.height = window.innerHeight + "px";
     }
 
+    //doesn't work in AR
     rollTheDice() {
         if (!haveDiced) {
             var newNumber = Math.floor(Math.random() * 12) + 1;
@@ -128,8 +132,6 @@ class RTCG {
 
         const intersects = raycaster.intersectObjects(scene.children[3].children, false);
 
-        console.log(intersects[0].point.x);
-
 
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
             player.geometry.position.x = Math.round(intersects[0].point.x/0.02);
@@ -152,6 +154,7 @@ class RTCG {
         }
     }
 
+    //doesn't work in AR
     onTabDown(event) {
         if (canvas.style.display == "none") {
             canvas.style.display = "block"
