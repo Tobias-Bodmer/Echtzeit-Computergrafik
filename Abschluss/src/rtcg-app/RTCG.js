@@ -81,7 +81,7 @@ class RTCG {
         scene.add(light.keyLight);
         scene.add(light.ambientLight);
 
-        group.applyMatrix4(new THREE.Matrix4().makeScale(0.05, 0.05, 0.05));
+        group.applyMatrix4(new THREE.Matrix4().makeScale(0.02, 0.02, 0.02));
 
         scene.add(group);
     }
