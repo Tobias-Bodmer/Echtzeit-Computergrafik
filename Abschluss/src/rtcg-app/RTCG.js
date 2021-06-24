@@ -126,11 +126,14 @@ class RTCG {
 
         raycaster.setFromCamera(mouse, camera);
 
-        const intersects = raycaster.intersectObjects(scene.children, false);
+        const intersects = raycaster.intersectObjects(scene.children[3].children, false);
+
+        console.log(intersects[0].point.x);
+
 
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
-            player.geometry.position.x = Math.round(intersects[0].point.x);
-            player.geometry.position.z = Math.round(intersects[0].point.z);
+            player.geometry.position.x = Math.round(intersects[0].point.x/0.02);
+            player.geometry.position.z = Math.round(intersects[0].point.z/0.02);
         } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) != null) {
             if (player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
                 player.geometry.position.x = intersects[0].object.position.x;
