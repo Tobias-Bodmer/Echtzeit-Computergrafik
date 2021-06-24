@@ -10,7 +10,7 @@ function createCamera() {
     );
 
     // Rückstellung der Kamera
-    camera.position.set(0, 35, 40);
+    camera.position.set(0, 4, 4);
 
     camera.lookAt(new Vector3(0, 0, 0));
 

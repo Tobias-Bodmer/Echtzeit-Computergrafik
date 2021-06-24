@@ -7,14 +7,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta name="author" content="WPM - Echtzeit Computergrafik">
 	<link type="html/css" rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 
 <body>
 	<script type="module">
-    import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
-    
+		import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
+
 		let camera, scene, renderer;
 		let controller;
 		let loader; // Wir müssen eine Variable für einen gltf-Modell-Loader erstellen
@@ -41,25 +41,28 @@
 			scene.add(light);
 
 			controller = renderer.xr.getController(0);
-      		controller.addEventListener('select', onSelect);
-     		scene.add(controller);
+			controller.addEventListener('select', onSelect);
+			scene.add(controller);
 
-      // URL zum jeweiligen Objekt
-            const modelUrl = "./model/Snickers.glb";
-      
-	  // Erstellung  GLTF-Ladeobjekt. GLTF ist ein 3D-Modellformat, das üblicherweise als das "JPEG von 3D" bezeichnet wird, weil es schnell und effizient zu verwenden ist, was ideal für das Web ist
+			// URL zum jeweiligen Objekt
+			const modelUrl = "./model/Snickers.glb";
+
+			// Erstellung  GLTF-Ladeobjekt. GLTF ist ein 3D-Modellformat, das üblicherweise als das "JPEG von 3D" bezeichnet wird, weil es schnell und effizient zu verwenden ist, was ideal für das Web ist
 			loader = new THREE.GLTFLoader();
-      
-      // Laden des Modells
-      // loader takes in a few arguments loader(model url, onLoad callback, onProgress callback, onError callback)
+
+			// Laden des Modells
+			// loader takes in a few arguments loader(model url, onLoad callback, onProgress callback, onError callback)
 			loader.load(
 				// URL
 				modelUrl,
 				// onLoad callback: Was aufgerufen wird, sobald das vollständige Modell geladen ist.
 				function (gltf) {
-                // Die gltf.scene enthält die Objektgruppe Three.js, die das 3D-Objekt des Modells darstellt.
+					// Die gltf.scene enthält die Objektgruppe Three.js, die das 3D-Objekt des Modells darstellt.
+
+
+					gltf.scene.applyMatrix4 ( new THREE.Matrix4().makeScale(10,1,0.1));
 					scene.add(gltf.scene);
-          			console.log("Modell wurde der Szene hinzugefügt!");
+					console.log("Modell wurde der Szene hinzugefügt!");
 
 					gltf.scene.position.z = -0.25;
 				},
@@ -71,8 +74,8 @@
 		}
 
 		function onSelect() {
-      		//Todo
-      	};
+			renderer.xr.setReferenceSpaceType("viewer");
+		};
 
 		function onWindowResize() {
 			camera.aspect = window.innerWidth / window.innerHeight;

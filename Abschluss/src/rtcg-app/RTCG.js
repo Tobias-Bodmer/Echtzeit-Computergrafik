@@ -33,7 +33,7 @@ class RTCG {
 
         camera = createCamera();
         scene = createScene();
-        renderer = createRenderer();
+        renderer = createRenderer(canvas);
 
         document.body.appendChild(ARButton.createButton(renderer));
 
@@ -57,9 +57,10 @@ class RTCG {
     }
 
     async iniLevel() {
+        let group = new THREEM.Group();
         const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png");
         gameBoard.forEach(element => {
-            scene.add(element);
+            group.add(element);
         });
 
         const enemy = new Character("1", 100, 30, 20, 40, "./src/img/Sixfeet_colorFinal.jpg");
@@ -67,20 +68,22 @@ class RTCG {
         enemy.geometry.position.y = 1;
         enemy.geometry.position.z = -18;
         enemies.push(enemy);
-        scene.add(enemy.geometry);
+        group.add(enemy.geometry);
 
         player = new Character("Player", 100, 70, 30, 20, "./src/img/dwarf_color1.jpg");
         await player.loadModel("./src/modells/Dwarf.gltf");
         player.geometry.position.y = 1;
         player.geometry.rotation.y = Math.PI;
         player.geometry.position.z = -1;
-        scene.add(player.geometry);
+        group.add(player.geometry);
 
         const light = createSpotLight();
         scene.add(light.keyLight);
         scene.add(light.ambientLight);
 
-        console.log(scene.children);
+        group.applyMatrix4(new THREE.Matrix4().makeScale(0.05, 0.05, 0.05));
+
+        scene.add(group);
     }
 
     iniStates() {
@@ -108,12 +111,6 @@ class RTCG {
     }
 
     onMouseDown(e) {
-
-        renderer.xr.setReferenceSpaceType("viewer");
-
-        console.log(renderer.xr.referenceSpaceType);
-        console.log(renderer.xr.getReferenceSpace());
-
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
 

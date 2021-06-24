@@ -1,5 +1,5 @@
-function createRenderer() {
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+function createRenderer(canvas) {
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
 
     renderer.setAnimationLoop(() => {
         renderer.render(scene, camera);
