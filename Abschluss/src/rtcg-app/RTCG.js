@@ -1,5 +1,4 @@
 import { ARButton } from 'https://unpkg.com/three@0.126.0/examples/jsm/webxr/ARButton.js';
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js';
 import * as THREEM from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 import { createSpotLight } from './components/light.js';
 import { createCamera } from './components/camera.js';
@@ -30,7 +29,6 @@ let anim_loop;
 class RTCG {
 
     constructor(container) {
-        three = THREE;
         canvas = document.querySelector("#scene-container");
 
         camera = createCamera();
@@ -55,36 +53,8 @@ class RTCG {
         document.body.appendChild(stateScreen);
 
         controller = renderer.xr.getController(0);
-        controller.addEventListener('select', this.onSelect);
         scene.add(controller);
     }
-
-    onSelect(event) {
-
-        console.log("yes");
-
-        let frame = event.frame;
-        let session = frame.session;
-        let anchorPose = new XRRigidTransform();
-        let inputSource = event.inputSource;
-
-        // If the user is on a screen based device, place the anchor 1 meter in front of them.
-        // Otherwise place the anchor at the location of the input device
-        if (inputSource.targetRayMode == 'screen') {
-          anchorPose = new XRRigidTransform(
-          {x: 0, y: -100, z: -100},
-          {x: 0, y: 0, z: 0, w: 1});
-        }
-
-        if (session.isImmersive) {
-          // Create a free-floating anchor.
-          frame.createAnchor(anchorPose, inputSource.targetRaySpace).then((anchor) => {
-            addAnchoredObjectToScene(anchor);
-          }, (error) => {
-            console.error("Could not create anchor: " + error);
-          });
-        }
-      }
 
     async iniLevel() {
         const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png");
@@ -111,12 +81,6 @@ class RTCG {
         scene.add(light.ambientLight);
 
         console.log(scene.children);
-
-        // for (let index = 0; index < scene.children.length; index++) {
-        //     if (scene.children[index].geometry != undefined) {
-        //         scene.children[index].geometry.scale(0.1, 0.1, 0.1);
-        //     }
-        // }
     }
 
     iniStates() {
@@ -145,11 +109,14 @@ class RTCG {
 
     onMouseDown(e) {
 
-        console.log("click!");
-        
+        renderer.xr.setReferenceSpaceType("viewer");
+
+        console.log(renderer.xr.referenceSpaceType);
+        console.log(renderer.xr.getReferenceSpace());
+
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
-        
+
         if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
             var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
             var touch = evt.touches[0] || evt.changedTouches[0];
@@ -159,12 +126,10 @@ class RTCG {
             mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
         }
-        
+
         raycaster.setFromCamera(mouse, camera);
-        
+
         const intersects = raycaster.intersectObjects(scene.children, false);
-        
-        console.log(intersects);
 
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
             player.geometry.position.x = Math.round(intersects[0].point.x);
