@@ -11,12 +11,15 @@ class Character {
         this.img = img;
         this.state.push(health, strength, agility, intelligence);
     }
-    
+
     async loadModel(modelUrl) {
         var loader = new GLTFLoader();
         const scene = await loader.loadAsync(modelUrl);
 
         this.geometry = scene.scene.children[0];
+        this.geometry.material = new THREE.MeshPhongMaterial()
+        this.geometry.material.color = new THREE.Color(0xF3F3F3);
+        console.log();
     }
 }
 

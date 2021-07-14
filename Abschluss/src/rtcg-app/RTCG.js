@@ -84,7 +84,7 @@ class RTCG {
         group.applyMatrix4(new THREE.Matrix4().makeScale(0.02, 0.02, 0.02));
 
         //TODO: play with the numebr
-        group.applyMatrix4(new THREE.Matrix4().makeTranslation (0, -0.2, 0));
+        group.applyMatrix4(new THREE.Matrix4().makeTranslation(0, -0.2, 0));
 
         scene.add(group);
     }
@@ -134,8 +134,8 @@ class RTCG {
 
 
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
-            player.geometry.position.x = Math.round(intersects[0].point.x/0.02);
-            player.geometry.position.z = Math.round(intersects[0].point.z/0.02);
+            player.geometry.position.x = Math.round(intersects[0].point.x / 0.02);
+            player.geometry.position.z = Math.round(intersects[0].point.z / 0.02);
         } else if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) != null) {
             if (player.geometry.position.distanceTo(intersects[0].object.position) > 1.5) {
                 player.geometry.position.x = intersects[0].object.position.x;
