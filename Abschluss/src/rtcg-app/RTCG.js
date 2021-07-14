@@ -58,7 +58,7 @@ class RTCG {
 
     async iniLevel() {
         let group = new THREEM.Group();
-        const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png");
+        const gameBoard = createGameBoard(21, 21, "white", "./src/texture/new_DefaultMaterial_BaseColor.png", "./src/texture/new_DefaultMaterial_Normal.png", true);
         gameBoard.forEach(element => {
             group.add(element);
         });

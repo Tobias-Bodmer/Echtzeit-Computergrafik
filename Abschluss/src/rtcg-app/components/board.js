@@ -1,7 +1,7 @@
 import { MeshPhongMaterial, TextureLoader } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 import { createPlane, createCube } from './geometry.js';
 
-function createGameBoard(width, height, color, texture, normal) {
+function createGameBoard(width, height, color, texture, normal, generateStones) {
 
     var gameBoard = [];
 
@@ -18,14 +18,16 @@ function createGameBoard(width, height, color, texture, normal) {
 
     plane.material = material;
 
-    gameBoard.push(generateStones());
+    if (generateStones) {
+        gameBoard.push(stonesGenerator());
+    }
 
     gameBoard.push(plane);
 
     return gameBoard;
 }
 
-function generateStones() {
+function stonesGenerator() {
     // create the particle variables
     var particleCount = 100;
     var particles = new THREE.BufferGeometry;
@@ -33,18 +35,14 @@ function generateStones() {
     var posArray = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i = i + 3) {
-        posArray[i] = Math.random()*20-10;
-        posArray[i+1] = 0.1;
-        posArray[i+2] = Math.random()*20-20;
+        posArray[i] = Math.random() * 20 - 10;
+        posArray[i + 1] = 0.1;
+        posArray[i + 2] = Math.random() * 20 - 20;
     }
-
     particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
-    var pMaterial = new THREE.PointsMaterial({
-        color: 0x555555,
-        size: 0.02
-    });
-
+    let sprite = new THREE.TextureLoader().load('./src/img/stone1.png');
+    var pMaterial = new THREE.PointsMaterial({ size: 0.03, sizeAttenuation: true, map: sprite, alphaTest: 0.5, transparent: true });
     const particlesMesh = new THREE.Points(particles, pMaterial);
 
     return particlesMesh;

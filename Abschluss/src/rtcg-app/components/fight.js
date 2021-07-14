@@ -20,12 +20,12 @@ function iniTable(enemy, player) {
 }
 
 //TODO: start needs better name
-function damage(target, start, dice, player, scene) {
-    if ((target.state[0] - Math.floor(start.state[1] * dice / 20)) > 0) {
-        target.state[0] -= Math.floor(start.state[1] * dice / 20);
+function damage(target, offender, dice, player, scene) {
+    if ((target.state[0] - Math.floor(offender.state[1] * dice / 20)) > 0) {
+        target.state[0] -= Math.floor(offender.state[1] * dice / 20);
 
         if (target == player) {
-            iniTable(start, player);
+            iniTable(offender, player);
         } else {
             iniTable(target, player);
         }
@@ -33,7 +33,7 @@ function damage(target, start, dice, player, scene) {
         target.state[0] = 0;
 
         if (target == player) {
-            iniTable(start, player);
+            iniTable(offender, player);
             //TODO: GAME OVER
         } else {
             iniTable(target, player);
@@ -43,7 +43,7 @@ function damage(target, start, dice, player, scene) {
 
                 document.getElementById("scene-container").style.display = "block";
 
-                scene.remove(target.geometry);
+                scene.children[3].remove(target.geometry);
             }, 1000)
         }
     }
