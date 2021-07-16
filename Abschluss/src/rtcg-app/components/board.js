@@ -1,19 +1,18 @@
 import { MeshPhongMaterial, TextureLoader } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
-import { createPlane, createCube } from './geometry.js';
+import { createPlane, createCube, createCuboid } from './geometry.js';
 
 function createGameBoard(width, height, color, texture, normal, generateStones) {
+    var simplex = new SimplexNoise();
 
     var gameBoard = [];
 
-    const plane = createPlane(width, height, 64, color, 0.25);
+    const plane = createPlane(width, height, 254, color, 0.25);
     plane.rotation.x = -Math.PI / 2;
     plane.position.z = -height / 2 + 0.5;
 
-    // console.log(textureGenerator());
-
     // const textureMap = new TextureLoader().load(texture);
-    const textureMap = textureGenerator();
     // const normalMap = new TextureLoader().load(normal);
+    const textureMap = textureGenerator(simplex, plane);
 
     let material = new MeshPhongMaterial();
     material.map = textureMap;
@@ -22,8 +21,8 @@ function createGameBoard(width, height, color, texture, normal, generateStones) 
     plane.material = material;
 
     if (generateStones) {
-        gameBoard.push(stonesGenerator(1));
-        gameBoard.push(stonesGenerator(2));
+        gameBoard.push(stonesGenerator(1, plane));
+        gameBoard.push(stonesGenerator(2, plane));
     }
 
     gameBoard.push(plane);
@@ -31,16 +30,17 @@ function createGameBoard(width, height, color, texture, normal, generateStones) 
     return gameBoard;
 }
 
-function stonesGenerator(i) {
-    // create the particle variables
+function stonesGenerator(i, _plane) {
     var particleCount = 25;
     var particles = new THREE.BufferGeometry;
-
+    
     var posArray = new Float32Array(particleCount * 3);
+    
+    const positionAttribute = _plane.geometry.getAttribute('position');
 
     for (let i = 0; i < particleCount * 3; i = i + 3) {
         posArray[i] = Math.random() * 20 - 10;
-        posArray[i + 1] = 0.2;
+        posArray[i + 1] = positionAttribute.getZ(positionAttribute.array.indexOf(positionAttribute.array.find(element => element >= posArray[i] - 0.05 && element <= posArray[i] + 0.05 ))) + 0.3;
         posArray[i + 2] = Math.random() * 20 - 20;
     }
     particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
@@ -52,28 +52,46 @@ function stonesGenerator(i) {
     return particlesMesh;
 }
 
-function textureGenerator() {
-    const width = 256;
-    const height = 256;
+function textureGenerator(simplex, plane) {
+    const zPos = [];
+
+    const width = 255;
+    const height = 255;
     const size = width * height;
     const data = new Uint8Array(3 * size);
-    var simplex = new SimplexNoise();
 
-    var noise = [];
-
-    for (let x = 0; x < width; x++) {
-        for (let y = 0; y < height; y++) {
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
             var g = Math.abs(simplex.noise2D(x / 64, y / 64) * 0.5 + 0.6);
 
-            data[(x + y * width) * 3 + 0] = Math.min(Math.max(g * 206, 206/1.8), 206);
-            data[(x + y * width) * 3 + 1] = Math.min(Math.max(g * 138, 138/1.8), 138);
-            data[(x + y * width) * 3 + 2] = Math.min(Math.max(g * 86, 86/1.8), 86);
+            if (g <= 0.45) {
+                data[(x + y * width) * 3 + 0] = Math.min(Math.max(g * 57, 57 / 1.5), 57);
+                data[(x + y * width) * 3 + 1] = Math.min(Math.max(g * 120, 120 / 1.5), 120);
+                data[(x + y * width) * 3 + 2] = Math.min(Math.max(g * 41, 41 / 1.5), 41);
+            } else {
+                data[(x + y * width) * 3 + 0] = Math.min(Math.max(g * 206, 206 / 1.8), 206);
+                data[(x + y * width) * 3 + 1] = Math.min(Math.max(g * 138, 138 / 1.8), 138);
+                data[(x + y * width) * 3 + 2] = Math.min(Math.max(g * 86, 86 / 1.8), 86);
+            }
+
+            zPos.push(g);
         }
     }
+    worldGenerator(plane, zPos);
+
+
 
     const texture = new THREE.DataTexture(data, width, height, THREE.RGBFormat);
 
     return texture;
+}
+
+function worldGenerator(_plane, zPos) {
+    const positionAttribute = _plane.geometry.getAttribute('position');
+
+    for (let vertexIndex = 0; vertexIndex < positionAttribute.count; vertexIndex++) {
+        positionAttribute.setZ(vertexIndex, zPos[vertexIndex]);
+    }
 }
 
 export { createGameBoard };

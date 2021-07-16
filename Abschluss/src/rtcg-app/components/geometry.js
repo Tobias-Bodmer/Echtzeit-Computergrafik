@@ -2,7 +2,7 @@ import { createSpotLight } from './light.js';
 import { ConeGeometry, CylinderGeometry, SphereBufferGeometry, BoxBufferGeometry, PlaneBufferGeometry, Mesh, MeshStandardMaterial, Color, MathUtils, Scene } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 
 function createPlane(width, height, segments, color, roughness) {
-    const geometry = new PlaneBufferGeometry(width, height, segments);
+    const geometry = new PlaneBufferGeometry(width, height, segments, segments);
 
     const material = new MeshStandardMaterial();
 
