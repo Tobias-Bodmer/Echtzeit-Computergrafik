@@ -1,4 +1,4 @@
-function createRenderer(canvas) {
+function createRenderer(_canvas) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
 
     renderer.setAnimationLoop(() => {

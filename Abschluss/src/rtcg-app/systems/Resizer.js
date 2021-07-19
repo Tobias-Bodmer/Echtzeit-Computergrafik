@@ -1,15 +1,15 @@
-const resize = (container, camera, renderer) => {
+const resize = (_container, _camera, _renderer) => {
     // 1
-    camera.aspect = container.clientWidth / container.clientHeight;
+    _camera.aspect = _container.clientWidth / _container.clientHeight;
 
     // Aktualisierung des Kamera-Frustums
-    camera.updateProjectionMatrix();
+    _camera.updateProjectionMatrix();
 
     // 2
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    _renderer.setSize(_container.clientWidth, _container.clientHeight);
 
     // 3
-    renderer.setPixelRatio(window.devicePixelRatio);
+    _renderer.setPixelRatio(window.devicePixelRatio);
 };
 
 class Resizer {

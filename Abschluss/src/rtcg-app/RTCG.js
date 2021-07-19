@@ -24,7 +24,6 @@ let enemies = [];
 let gameBoard;
 let positionAttribute;
 
-
 let haveDiced = false;
 
 let anim_loop;
@@ -129,18 +128,18 @@ class RTCG {
         }
     }
 
-    onMouseDown(e) {
+    onMouseDown(_event) {
         const raycaster = new THREEM.Raycaster();
         const mouse = new THREEM.Vector2();
 
-        if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
-            var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+        if (_event.type == 'touchstart' || _event.type == 'touchmove' || _event.type == 'touchend' || _event.type == 'touchcancel') {
+            var evt = (typeof _event.originalEvent === 'undefined') ? _event : _event.originalEvent;
             var touch = evt.touches[0] || evt.changedTouches[0];
             mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
             mouse.y = - (touch.clientY / window.innerHeight) * 2 + 1;
         } else {
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
+            mouse.x = (_event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (_event.clientY / window.innerHeight) * 2 + 1;
         }
 
         raycaster.setFromCamera(mouse, camera);
@@ -181,13 +180,14 @@ class RTCG {
     }
 
     //doesn't work in AR
-    onTabDown(event) {
+    onTabDown(_event) {
         if (canvas.style.display == "none") {
             canvas.style.display = "block"
         } else {
             canvas.style.display = "none";
         }
     }
+
 
     render() {
         renderer.render(scene, camera);

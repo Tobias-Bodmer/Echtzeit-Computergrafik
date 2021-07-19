@@ -2,21 +2,23 @@ import { Clock } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/thre
 
 const clock = new Clock();
 
+const fps_element = document.querySelector("#fps_counter");
+var lastCalledTime;
+var fps;
+
 class Anim_loop {
 
-    constructor(camera, scene, renderer) {
-        this.camera = camera;
-        this.scene = scene;
-        this.renderer = renderer;
+    constructor(_camera, _scene, _renderer) {
+        this.camera = _camera;
+        this.scene = _scene;
+        this.renderer = _renderer;
         this.animated_objects = [];
     }
 
     start() {
         this.renderer.setAnimationLoop(() => {
-
             this.tick();
 
-            // Rendere einen Frame:
             this.renderer.render(this.scene, this.camera);
         });
     }
@@ -26,13 +28,29 @@ class Anim_loop {
     }
 
     tick() {
-
-        // Bitte getDelta einmal pro Frame aufrufen!
         const delta = clock.getDelta();
 
+        this.fps();
 
         for (const object of this.animated_objects) {
             object.tick(delta);
+        }
+    }
+
+    fps() {
+        if (!lastCalledTime) {
+            lastCalledTime = Date.now();
+            fps = 0;
+            return;
+        }
+        var fpsDelta = (Date.now() - lastCalledTime) / 1000;
+        lastCalledTime = Date.now();
+        fps = 1 / fpsDelta;
+
+        if(fps.toFixed(1) < 60) {
+            fps_element.innerHTML = fps.toFixed(1);
+        } else {
+            fps_element.innerHTML = "60";
         }
     }
 

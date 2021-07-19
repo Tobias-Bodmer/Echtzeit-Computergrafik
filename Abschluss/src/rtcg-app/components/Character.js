@@ -6,15 +6,15 @@ class Character {
     state = [];
     geometry;
 
-    constructor(name, health, strength, agility, intelligence, img) {
-        this.name = name;
-        this.img = img;
-        this.state.push(health, strength, agility, intelligence);
+    constructor(_name, _health, _strength, _agility, _intelligence, _img) {
+        this.name = _name;
+        this.img = _img;
+        this.state.push(_health, _strength, _agility, _intelligence);
     }
 
-    async loadModel(modelUrl) {
+    async loadModel(_modelUrl) {
         var loader = new GLTFLoader();
-        const scene = await loader.loadAsync(modelUrl);
+        const scene = await loader.loadAsync(_modelUrl);
 
         this.geometry = scene.scene.children[0];
         this.geometry.material = new THREE.MeshPhongMaterial()

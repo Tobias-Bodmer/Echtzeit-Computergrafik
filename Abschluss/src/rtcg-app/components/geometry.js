@@ -1,13 +1,13 @@
 import { createSpotLight } from './light.js';
 import { ConeGeometry, CylinderGeometry, SphereBufferGeometry, BoxBufferGeometry, PlaneBufferGeometry, Mesh, MeshStandardMaterial, Color, MathUtils, Scene } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.module.js';
 
-function createPlane(width, height, segments, color, roughness) {
-    const geometry = new PlaneBufferGeometry(width, height, segments, segments);
+function createPlane(_width, _height, _segments, _color, _roughness) {
+    const geometry = new PlaneBufferGeometry(_width, _height, _segments, _segments);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const plane = new Mesh(geometry, material);
 
@@ -15,35 +15,26 @@ function createPlane(width, height, segments, color, roughness) {
     return plane;
 }
 
-function createCube(size, color, roughness) {
-    const geometry = new BoxBufferGeometry(size, size, size);
+function createCube(_size, _color, _roughness) {
+    const geometry = new BoxBufferGeometry(_size, _size, _size);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const cube = new Mesh(geometry, material);
-
-    const rad_perSecond = MathUtils.degToRad(25);
-
-    cube.tick = (delta) => {
-        cube.rotation.z += rad_perSecond * delta;
-        cube.rotation.x += rad_perSecond * delta;
-        cube.rotation.y += rad_perSecond * delta;
-    };
-
 
     return cube;
 }
 
-function createCuboid(width, height, depth, color, roughness) {
-    const geometry = new BoxBufferGeometry(width, height, depth);
+function createCuboid(_width, _height, _depth, _color, _roughness) {
+    const geometry = new BoxBufferGeometry(_width, _height, _depth);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const cuboid = new Mesh(geometry, material);
 
@@ -51,13 +42,13 @@ function createCuboid(width, height, depth, color, roughness) {
     return cuboid;
 }
 
-function createSphere(radius, widthSegments, heightSegments, color, roughness) {
-    const geometry = new SphereBufferGeometry(radius, widthSegments, heightSegments);
+function createSphere(_radius, _widthSegments, _heightSegments, _color, _roughness) {
+    const geometry = new SphereBufferGeometry(_radius, _widthSegments, _heightSegments);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const sphere = new Mesh(geometry, material);
 
@@ -65,13 +56,13 @@ function createSphere(radius, widthSegments, heightSegments, color, roughness) {
     return sphere;
 }
 
-function createCylinder(radiusTop, radiusBottom, height, radialSegments, heightSegments, color, roughness) {
-    const geometry = new CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments);
+function createCylinder(_radiusTop, _radiusBottom, _height, _radialSegments, _heightSegments, _color, _roughness) {
+    const geometry = new CylinderGeometry(_radiusTop, _radiusBottom, _height, _radialSegments, _heightSegments);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const cylinder = new Mesh(geometry, material);
 
@@ -79,13 +70,13 @@ function createCylinder(radiusTop, radiusBottom, height, radialSegments, heightS
     return cylinder;
 }
 
-function createCone(radius, height, radialSegments, heightSegments, color, roughness) {
-    const geometry = new ConeGeometry(radius, height, height, radialSegments, heightSegments);
+function createCone(_radius, _height, _radialSegments, _heightSegments, _color, _roughness) {
+    const geometry = new ConeGeometry(_radius, _height, _height, _radialSegments, _heightSegments);
 
     const material = new MeshStandardMaterial();
 
-    material.color = new Color(color);
-    material.roughness = roughness;
+    material.color = new Color(_color);
+    material.roughness = _roughness;
 
     const cone = new Mesh(geometry, material);
 
@@ -93,7 +84,7 @@ function createCone(radius, height, radialSegments, heightSegments, color, rough
     return cone;
 }
 
-function createTestScene(cubes, spheres, spaceing) {
+function createTestScene(_cubes, _spheres, _spaceing) {
     const scene = new Scene();
 
     let plane = createPlane(20, 20, 64, "white", 0);
@@ -101,15 +92,15 @@ function createTestScene(cubes, spheres, spaceing) {
     plane.rotation.x = -Math.PI / 2;
     scene.add(plane);
 
-    for (let i = 0; i < cubes; i++) {
+    for (let i = 0; i < _cubes; i++) {
         let cube = createCube(1, "white", 0.25);
-        cube.position.set((-5 + spaceing * i), -1, (-1 * spaceing));
+        cube.position.set((-5 + _spaceing * i), -1, (-1 * _spaceing));
         scene.add(cube);
     }
 
-    for (let i = 0; i < spheres; i++) {
+    for (let i = 0; i < _spheres; i++) {
         let sphere = createSphere(0.5, 16, 16, "white", 0.25);
-        sphere.position.set((-5 + spaceing * i), -1, (1 * spaceing));
+        sphere.position.set((-5 + _spaceing * i), -1, (1 * _spaceing));
         scene.add(sphere);
     }
 
