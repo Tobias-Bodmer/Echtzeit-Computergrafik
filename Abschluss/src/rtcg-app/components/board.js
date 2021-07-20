@@ -6,7 +6,7 @@ function createGameBoard(_width, _height, _color, _texture, _normal, _generateSt
 
     var gameBoard = [];
 
-    const plane = createPlane(_width, _height, 254, _color, 0.25);
+    const plane = createPlane(_width, _height, 254, _color, 0.25)
     plane.rotation.x = -Math.PI / 2;
     plane.position.z = -_height / 2 + 0.5;
 
@@ -90,7 +90,7 @@ function worldGenerator(_plane, _zPos) {
     const positionAttribute = _plane.geometry.getAttribute('position');
 
     for (let vertexIndex = 0; vertexIndex < positionAttribute.count; vertexIndex++) {
-        positionAttribute.setZ(vertexIndex, _zPos[vertexIndex]);
+        positionAttribute.setZ(vertexIndex, _zPos[vertexIndex]/1.25);
     }
 }
 

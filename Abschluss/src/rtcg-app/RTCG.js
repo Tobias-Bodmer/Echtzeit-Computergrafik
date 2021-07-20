@@ -146,7 +146,6 @@ class RTCG {
 
         const intersects = raycaster.intersectObjects(scene.children[3].children, false);
 
-
         if (intersects[0] != undefined && enemies.find(enemy => enemy.geometry == intersects[0].object) == null) {
             player.geometry.position.x = Math.round(intersects[0].point.x / 0.02);
             player.geometry.position.y = 5;
