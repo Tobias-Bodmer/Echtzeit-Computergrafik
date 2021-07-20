@@ -10,12 +10,10 @@
 
 Meine Klassen sind innerhalb der Abschlussaufgabe in kleiner Sub-Klassen unterteilt, 
 um den Überblick zu sichern und die Hauptklasse nicht zu strecken.
-
 Hier bei habe ich zwischen Komponenten und System Sub-Klassen unterschieden.
 Die Hauptklasse der Anwendung ist die RTCG.js - die main.js verwaltet Events und das Starten der Anwendung.
 
 Innerhalb meiner Klassen möchte ich auf zwei der schwierigeren Funktionen eingehen, um diese zu erklären.
-
 Die Event-Funktion onMouseDown und die createGameBoard Funktion
 
 #### onMouseDown
