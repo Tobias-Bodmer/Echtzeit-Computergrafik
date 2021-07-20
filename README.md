@@ -4,9 +4,9 @@
 
 **[Direktlink zur Anwendung](https://tobias-bodmer.github.io/Echtzeit-Computergrafik/Abschluss/)**
 
-### Methodik
+## Methodik
 
-#### Klassenaufteilung
+### Klassenaufteilung
 
 Meine Klassen sind innerhalb der Abschlussaufgabe in kleiner Sub-Klassen unterteilt, 
 um den Überblick zu sichern und die Hauptklasse nicht zu strecken.
@@ -16,7 +16,7 @@ Die Hauptklasse der Anwendung ist die RTCG.js - die main.js verwaltet Events und
 Innerhalb meiner Klassen möchte ich auf zwei der schwierigeren Funktionen eingehen, um diese zu erklären.
 Die Event-Funktion onMouseDown und die createGameBoard Funktion
 
-#### onMouseDown
+### onMouseDown
 Diese Funktion errechnet mit den Maus (oder auch touch) x- und y-Koordinaten das angewählte Objekt.
 Hierfür verwende ich einen Ray cast der durch die Kamera in den Raum projiziert wird und werte dann die Schnittpunkte aus.
 
@@ -31,7 +31,7 @@ Diese Funktion wurde so aufgebaut, da sie so höchst effizient ist. Sie verwende
 Das Überlegen der Divs ermöglicht einen schnellen Wechsel zwischen Anwendung und Kampf was auch wiederum die Ressourcen einspart, 
 da keins der Elemente innerhalb von WebGL gerendert und verwaltet werden muss.
 
-#### createGameBoard
+### createGameBoard
 Diese Funktion generiert das Spielbrett, welches aus einer generierten Textur, einer generierten Oberfläche und Partikel Effekten aus Steinen besteht.
 
 Ich verwende SimplexNoise, um mir eine Noise-Map generieren zu lassen. Diese verwende ich dann in der textureGenerator Funktion, 
@@ -48,7 +48,7 @@ und schon sind auch die Steine fertig.
 
 Zurückgegeben wird ein fertig erzeugtes Spielbrett mit generierter Oberfläche und Textur und variable platzierten Steinen.
 
-### Performance
+## Performance
 Über eine FPS-Anzeige habe ich auch die Performance meiner Anwendung getestet.
 
 Diese lag nur innerhalb des Seitenaufbaus unterhalb 60fps und ist damit stabil und völlig ausreichend für ein im Browser lauffähiges Pen and Paper Game.
