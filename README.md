@@ -2,7 +2,7 @@
 Repository für das Modul Echtzeit-Computergrafik an der Hochschule Furtwangen.
 
 ## Abschlussaufgabe
-![Demo-Ansicht](https://user-images.githubusercontent.com/48796225/126493999-4df623ee-0dd7-43f8-b246-5864d91cdddd.PNG)
+![1](https://user-images.githubusercontent.com/48796225/126495268-22ae5a14-a27c-4001-abd6-fdc1af15890c.PNG)
 
 Eine Art Pen-&-Paper-Game auf Grundlage von WebGL war das Ziel meiner Abschlussaufgabe.
 Diese sollte nicht nur als standardmäßige Webanwendung funktionieren, sondern auch eine AR-Oberfläche besitzen.
@@ -14,9 +14,9 @@ Weiter finden Sie eine Erläuterung der Struktur der Scripte und eine Erklärung
 ## Methodik
 
 ### Technologien
-* ThreeJS
-* jQuery
-* simplex-noise.js
+* **[ThreeJS](https://threejs.org/)**
+* **[jQuery](https://jquery.com/)**
+* **[simplexNoiseJS](https://github.com/jwagner/simplex-noise.js/)**
 
 ### Klassenaufteilung
 
