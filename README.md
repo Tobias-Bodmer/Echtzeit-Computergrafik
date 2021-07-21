@@ -2,10 +2,13 @@
 Repository für das Modul Echtzeit-Computergrafik an der Hochschule Furtwangen.
 
 ## Abschlussaufgabe
-![1](https://user-images.githubusercontent.com/48796225/126495268-22ae5a14-a27c-4001-abd6-fdc1af15890c.PNG)
+![Demo-Ansicht](https://user-images.githubusercontent.com/48796225/126495268-22ae5a14-a27c-4001-abd6-fdc1af15890c.PNG)
 
 Eine Art Pen-&-Paper-Game auf Grundlage von WebGL war das Ziel meiner Abschlussaufgabe.
 Diese sollte nicht nur als standardmäßige Webanwendung funktionieren, sondern auch eine AR-Oberfläche besitzen.
+
+## Augmented-Reality
+![AR-Ansicht](https://user-images.githubusercontent.com/48796225/126498228-64ec9079-96fd-4637-9d18-38ea6ad3f2c5.jpeg)
 
 **[Direktlink zur Anwendung](https://tobias-bodmer.github.io/Echtzeit-Computergrafik/Abschluss/)**
 
