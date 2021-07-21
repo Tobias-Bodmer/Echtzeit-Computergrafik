@@ -17,7 +17,7 @@ Weiter finden Sie eine Erläuterung der Struktur der Scripte und eine Erklärung
 * **[ThreeJS](https://threejs.org/)**
 * **[jQuery](https://jquery.com/)**
 * **[simplexNoiseJS](https://github.com/jwagner/simplex-noise.js/)**
-
+##
 ### Klassenaufteilung
 
 Meine Klassen sind innerhalb der Abschlussaufgabe in kleiner Sub-Klassen unterteilt, 
@@ -27,7 +27,7 @@ Die Hauptklasse der Anwendung ist die RTCG.js - die main.js verwaltet Events und
 
 Innerhalb meiner Klassen möchte ich auf zwei der schwierigeren Funktionen eingehen, um diese zu erklären.
 Die Event-Funktion onMouseDown und die createGameBoard Funktion.
-
+##
 ### onMouseDown
 Diese Funktion errechnet mit den Maus (oder auch Touch) x- und y-Koordinaten das angewählte Objekt.
 Hierfür verwende ich einen Ray cast der durch die Kamera in den Raum projiziert wird und werte dann die Schnittpunkte aus.
@@ -44,7 +44,7 @@ Diese Funktion wurde so aufgebaut, da sie so höchst effizient ist. Sie verwende
 "Touch"-Event ausgelöst auch die Ray cast sind die kostengünstigste Möglichkeit, um Schnittpunkte zu bestimmen. 
 Das Überlegen der ```Divs``` ermöglicht einen schnellen Wechsel zwischen Anwendung und Kampf was auch wiederum die Ressourcen einspart, 
 da keins der Elemente innerhalb von WebGL gerendert und verwaltet werden muss.
-
+##
 ### createGameBoard
 Diese Funktion generiert das Spielbrett, welches aus einer generierten Textur, einer generierten Oberfläche und Partikel Effekten aus Steinen besteht.
 
